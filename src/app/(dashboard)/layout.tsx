@@ -1,14 +1,18 @@
 import { NavSidebar } from '@/components/common/nav-sidebar';
 import { SignedInNavbar } from '@/components/common/navbar';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { cookies } from 'next/headers';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
+
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={defaultOpen}>
       <aside>
         <NavSidebar />
       </aside>
