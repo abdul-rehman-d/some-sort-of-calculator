@@ -1,4 +1,4 @@
-import SignedInNavbar from '@/components/common/signed-in-navbar';
+import { SignedInNavbar } from '@/components/common/navbar';
 
 export default function DashboardLayout({
   children,

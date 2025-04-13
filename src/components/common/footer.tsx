@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="text-center p-4 text-sm">
+    <footer className="text-center p-4 text-sm border-t">
       <a
         href="https://abdul-rehman-d.com/"
         target="_blank"
