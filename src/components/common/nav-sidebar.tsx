@@ -1,46 +1,18 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
+  SidebarMenu,
 } from '@/components/ui/sidebar';
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { auth } from '@clerk/nextjs/server';
+import { NavSidebarList } from './nav-sidebar-list';
 import { HomeLogoLink } from './navbar';
 
-const items = [
-  {
-    title: 'Home',
-    url: '#',
-    icon: Home,
-  },
-  {
-    title: 'Inbox',
-    url: '#',
-    icon: Inbox,
-  },
-  {
-    title: 'Calendar',
-    url: '#',
-    icon: Calendar,
-  },
-  {
-    title: 'Search',
-    url: '#',
-    icon: Search,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
-  },
-];
+export async function NavSidebar() {
+  const { userId } = await auth();
 
-export function NavSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -48,19 +20,9 @@ export function NavSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <NavSidebarList userId={userId} />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
