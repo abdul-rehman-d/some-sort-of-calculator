@@ -13,11 +13,9 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <aside>
-        <NavSidebar />
-      </aside>
+      <NavSidebar />
 
-      <div className="flex-grow flex flex-col">
+      <div className="flex-grow bg-background flex flex-col transition-[margin] ease-linear duration-200 peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm">
         <SignedInNavbar />
         <main className="flex-grow">{children}</main>
       </div>

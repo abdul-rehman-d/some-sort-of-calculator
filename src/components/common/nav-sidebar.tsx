@@ -14,7 +14,7 @@ export async function NavSidebar() {
   const { userId } = await auth();
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar variant="inset" collapsible="icon">
       <SidebarHeader>
         <HomeLogoLink />
       </SidebarHeader>
