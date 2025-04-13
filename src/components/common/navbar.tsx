@@ -4,12 +4,13 @@ import { auth } from '@clerk/nextjs/server';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { ThemeToggle } from './theme-toggler';
+import { SidebarTrigger } from '../ui/sidebar';
 
 export async function PublicNavbar() {
   const { userId } = await auth();
 
   return (
-    <NavbarWrapper>
+    <NavbarWrapper slot={<HomeLogoLink />}>
       <SignedOut>
         <SignInButton mode="modal">
           <Button>Sign In</Button>
@@ -25,14 +26,14 @@ export async function PublicNavbar() {
 }
 
 export function SignedInNavbar() {
-  return <NavbarWrapper />;
+  return <NavbarWrapper slot={<SidebarTrigger />} />;
 }
 
-function NavbarWrapper({ children }: { children?: React.ReactNode }) {
+function NavbarWrapper({ children, slot }: { children?: React.ReactNode; slot?: React.ReactNode }) {
   return (
     <nav className="flex justify-between items-center p-4 border-b">
-      <HomeLogoLink />
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">{slot}</div>
+      <div className="flex gap-4 items-center">
         {children}
         <ThemeToggle />
         <SignedIn>
@@ -43,10 +44,13 @@ function NavbarWrapper({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function HomeLogoLink() {
+export function HomeLogoLink() {
   return (
-    <Link href="/" className="w-10 h-10 flex items-center justify-center rounded-full bg-primary">
-      <span aria-hidden="true" className="text-primary-foreground text-2xl">
+    <Link
+      href="/"
+      className="w-10 max-w-full transition-all aspect-square flex items-center justify-center rounded-full bg-primary"
+    >
+      <span aria-hidden="true" className="text-primary-foreground text-xl">
         #
       </span>
       <span className="sr-only">Home</span>
